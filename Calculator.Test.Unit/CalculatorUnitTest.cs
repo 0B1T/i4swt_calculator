@@ -4,97 +4,66 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using NUnit.Framework.Interfaces;
 
 namespace Calculator.Test.Unit
 {
     [TestFixture]
+    [Author("John Romby")]
     public class CalculatorUnitTest
     {
+        private Calculator _uut;
+
+    // Test Setup:
+        [SetUp]
+        public void Setup()
+        {
+            _uut = new Calculator();
+        }
+
     // Add Test:
-        [Test]
-        public void Add_Add2And8_Returns10()
+//        [TestCase(2, 8, ExpectedResult = 10)]     // Could not get this one to work in my case.
+        [TestCase(2, 8, 10)]
+        [TestCase(-2, 8, 6)]
+        [TestCase(2, -8, -6)]
+        [TestCase(-2, -8, -10)]
+        public void Add_Test(double a,double b, double result)
         {
-            var uut = new Calculator();
-            Assert.That(uut.Add(2,8), Is.EqualTo(10));
-        }
-        [Test]
-        public void Add_AddMinus4And10_Return6()
-        {
-            var uut = new Calculator();
-            Assert.That(uut.Add(-4, 10), Is.EqualTo(6));
-        }
-        [Test]
-        public void Add_AddMinus4AndMinus10_ReturnMinus14()
-        {
-            var uut = new Calculator();
-            Assert.That(uut.Add(-4, -10), Is.EqualTo(-14));
+            Assert.That(_uut.Add(a, b), Is.EqualTo(result));
         }
     
     // Subtract Test:
-        [Test]
-        public void Subtract_Sub10And6_Return4()
+        [TestCase(10, 6, 4)]
+        [TestCase(-10, 6, -16)]
+        [TestCase(10, -6, 16)]
+        [TestCase(-10, -6, -4)]
+        public void Subtract_Test(double a, double b, double result)
         {
-            var uut = new Calculator();
-            Assert.That(uut.Subtract(10, 6), Is.EqualTo(4));
-        }
-        [Test]
-        public void Subtract_SubMinus10And6_ReturnMinus16()
-        {
-            var uut = new Calculator();
-            Assert.That(uut.Subtract(-10, 6), Is.EqualTo(-16));
-        }
-        [Test]
-        public void Subtract_SubMinus10AndMinus6_ReturnMinus4()
-        {
-            var uut = new Calculator();
-            Assert.That(uut.Subtract(-10, -6), Is.EqualTo(-4));
+            Assert.That(_uut.Subtract(a, b), Is.EqualTo(result));
         }
 
     // Multiply Test:
-        [Test]
-        public void Multiply_Multi7And2_Return14()
+        [TestCase(7, 2, 14)]
+        [TestCase(-7, 2, -14)]
+        [TestCase(7, -2, -14)]
+        [TestCase(-7, -2, 14)]
+        public void Multiply_Test(double a, double b, double result)
         {
-            var uut = new Calculator();
-            Assert.That(uut.Multiply(7,2),Is.EqualTo(14));
-        }
-        [Test]
-        public void Multiply_MultiMinus7And2_ReturnMinus14()
-        {
-            var uut = new Calculator();
-            Assert.That(uut.Multiply(-7, 2), Is.EqualTo(-14));
-        }
-        [Test]
-        public void Multiply_MultiMinus7AndMinus2_Return14()
-        {
-            var uut = new Calculator();
-            Assert.That(uut.Multiply(-7, -2), Is.EqualTo(14));
+            Assert.That(_uut.Multiply(a, b), Is.EqualTo(result));
         }
 
     // Power Test:
-        [Test]
-        public void Power_Pow2And2_Return4()
+        [TestCase(2, 2, 4)]
+        [TestCase(-2, 2, 4)]
+        [TestCase(2, -2, 0.25)]
+        [TestCase(-2, -2, 0.25)]
+        [TestCase(2, 3, 8)]
+        [TestCase(-2, 3, -8)]
+        [TestCase(2, -3, 0.125)]
+        [TestCase(-2, -3, -0.125)]
+        public void Power_Test(double a, double b, double result)
         {
-            var uut = new Calculator();
-            Assert.That(uut.Power(2, 2), Is.EqualTo(4));
+            Assert.That(_uut.Power(a, b), Is.EqualTo(result));
         }
-        [Test]
-        public void Power_PowMinus2And2_ReturnMinus4()
-        {
-            var uut = new Calculator();
-            Assert.That(uut.Power(-2, 2), Is.EqualTo(-4));
-        }
-        [Test]
-        public void Power_Pow2AndMinus2_Return0point25()
-        {
-            var uut = new Calculator();
-            Assert.That(uut.Power(2, -2), Is.EqualTo(0.25));
-        }
-        [Test]
-        public void Power_PowMinus2AndMinus2_ReturnMinus0point25()
-        {
-            var uut = new Calculator();
-            Assert.That(uut.Power(-2, -2), Is.EqualTo(-0.25));
-        }
-
     }
 }

@@ -23,7 +23,7 @@ namespace Calculator
             return a * b;
         }
 
-        public double Power(int x, int exp)
+        public double Power(double x, double exp)
         {
             return Math.Pow(x, exp);
         }
